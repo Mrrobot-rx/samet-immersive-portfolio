@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAMET SALIM — Immersive Portfolio</title>
+  <meta name="description" content="Immersive fullstack-style portfolio for Samet Salim" />
+  <style>
+    :root{
+      --bg:#060816;--bg2:#0b1230;--card:#0f1a3d99;--line:#ffffff22;--text:#ecf3ff;--muted:#a8b7d8;
+      --c1:#36d1dc;--c2:#5b86e5;--c3:#8b5cf6;--good:#4ade80;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1000px 600px at 20% -10%,#1b2f73,transparent 55%),radial-gradient(900px 500px at 90% 10%,#2b115f,transparent 50%),var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth}
+    canvas#bg{position:fixed;inset:0;z-index:-2}
+    .noise{position:fixed;inset:0;z-index:-1;opacity:.05;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)"/></svg>');}
+    .container{width:min(1150px,92%);margin:auto}
+    header{position:sticky;top:0;backdrop-filter:blur(8px);background:#060816aa;border-bottom:1px solid var(--line);z-index:10}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+    .brand{font-weight:800;letter-spacing:.4px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
+    nav a{color:var(--muted);text-decoration:none;margin-left:14px;font-size:.92rem}
+    nav a:hover{color:#fff}
+    section{padding:62px 0}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}
+    h1{font-size:clamp(2rem,5vw,4rem);line-height:1.06;margin:.2rem 0 1rem}
+    .gradient{background:linear-gradient(90deg,#fff,var(--c1),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    p{color:var(--muted)}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .btn{display:inline-block;padding:11px 14px;border:1px solid var(--line);border-radius:12px;color:#fff;text-decoration:none;background:#0f1736}
+    .btn.primary{border:none;background:linear-gradient(90deg,var(--c2),var(--c3))}
+    .panel{background:linear-gradient(180deg,#182a62aa,#0f1a3d66);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 10px 30px #00000055;transform-style:preserve-3d;transition:transform .2s ease}
+    .meta{display:grid;gap:8px}
+    .line{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed #ffffff18;padding:6px 0}
+    .k{color:#b9c7e7}.v{font-weight:600;color:#fff;text-align:right}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;transform-style:preserve-3d;transition:transform .16s ease, box-shadow .16s ease;border-top:1px solid #ffffff3a}
+    .card:hover{box-shadow:0 10px 25px #00000066}
+    h2{font-size:1.5rem;margin:0 0 14px}
+    h3{margin:.2rem 0 .6rem;font-size:1.05rem}
+    ul{margin:6px 0 0;padding-left:18px;color:var(--muted)}
+    .timeline{display:grid;gap:10px}
+    .item{padding:14px;border-left:3px solid var(--c3);background:#ffffff06;border-radius:8px}
+    .tag{display:inline-block;padding:5px 10px;border:1px solid var(--line);border-radius:999px;margin:4px 6px 0 0;color:#d8e7ff;font-size:.82rem;background:#ffffff08}
+    .project{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+    footer{padding:26px 0 40px;border-top:1px solid var(--line);color:#8ea0c7}
+    .reveal{opacity:0;transform:translateY(26px);transition:all .65s ease}
+    .reveal.show{opacity:1;transform:none}
+    @media(max-width:980px){.hero,.grid{grid-template-columns:1fr}nav{display:none}}
+  </style>
+</head>
+<body>
+  <canvas id="bg"></canvas><div class="noise"></div>
+  <header>
+    <div class="container nav">
+      <div class="brand">SAMET SALIM</div>
+      <nav>
+        <a href="#about">About</a><a href="#education">Education</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero reveal">
+      <div class="panel tilt">
+        <div style="font-size:.85rem;color:#cfdcff">AI • NLP • DATA SCIENCE</div>
+        <h1>Immersive Portfolio<br><span class="gradient">SAMET SALIM</span></h1>
+        <p>Self-taught AI practitioner transitioning from Law and administration into full practical Data Science, focused on NLP for low-resource languages in Algeria and MENA.</p>
+        <div class="btns">
+          <a class="btn primary" href="https://github.com/Mrrobot-rx" target="_blank">GitHub</a>
+          <a class="btn" href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/" target="_blank">Live Demo</a>
+          <a class="btn" href="https://flo.fun/sxlCK1n/" target="_blank">Portfolio Ref</a>
+        </div>
+      </div>
+      <div class="panel tilt">
+        <h3>Profile Snapshot</h3>
+        <div class="meta">
+          <div class="line"><span class="k">Age</span><span class="v">24</span></div>
+          <div class="line"><span class="k">DOB</span><span class="v">December 16, 2001</span></div>
+          <div class="line"><span class="k">Location</span><span class="v">Alger / Tébessa, Algeria</span></div>
+          <div class="line"><span class="k">Phone</span><span class="v">+213 669 98 97 86</span></div>
+          <div class="line"><span class="k">Email</span><span class="v">salimsamet00@gmail.com</span></div>
+          <div class="line"><span class="k">Status</span><span class="v">Single</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <h2>About</h2>
+      <div class="card tilt">
+        <p>Transitioning from military hospital administrative operations to AI development, I learned by building. I convert inefficiencies into systems, and ideas into deployed solutions.</p>
+        <p>Career objective: advance through graduate-level Data Science and deliver NLP tools for underrepresented languages and communities.</p>
+      </div>
+    </section>
+
+    <section id="education" class="reveal">
+      <h2>Education & Training</h2>
+      <div class="timeline">
+        <div class="item card tilt"><strong>2021 — First Year Law License (Incomplete)</strong><br><span class="k">Larbi Tebessi University, Faculty of Law, Tébessa</span></div>
+        <div class="item card tilt"><strong>2019 — Baccalauréat</strong><br><span class="k">Field: Foreign Languages</span></div>
+      </div>
+    </section>
+
+    <section id="experience" class="reveal">
+      <h2>Work Experience</h2>
+      <div class="card tilt">
+        <h3>Administrative Secretary Assistant — Military Hospital Project</h3>
+        <p class="k">Staoueli, Alger • May 26, 2023 → January 18, 2024</p>
+        <ul>
+          <li>Managed reception, correspondence classification, and archive organization (digital + physical)</li>
+          <li>Maintained administrative data entries and records</li>
+          <li>Detected manual workflow inefficiencies and applied automation-oriented methods</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <h2>Skills</h2>
+      <div class="grid">
+        <div class="card tilt"><h3>Technical</h3><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">numpy</span><span class="tag">NLP</span><span class="tag">Prompt Engineering</span><span class="tag">AI Automation</span><span class="tag">Streamlit</span><span class="tag">Sentiment Analysis</span><span class="tag">Git/GitHub</span></div>
+        <div class="card tilt"><h3>Tools</h3><span class="tag">VS Code</span><span class="tag">Hugging Face</span><span class="tag">OpenAI API</span><span class="tag">Web Apps</span></div>
+        <div class="card tilt"><h3>Languages</h3><span class="tag">Arabic (C2)</span><span class="tag">Darja (C2)</span><span class="tag">English (B2)</span><span class="tag">French (B1)</span></div>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <h2>Featured Project</h2>
+      <div class="card tilt project">
+        <div>
+          <h3>Algerian Arabic Sentiment Analysis Tool — January 2025</h3>
+          <p>Interactive NLP application for emotion analysis in Darja with custom preprocessing and real-time classification.</p>
+          <ul>
+            <li>Classes: positive, negative, neutral</li>
+            <li>Accuracy: 85% on 200+ labeled comments</li>
+            <li>Impact: practical AI for low-resource language communities</li>
+          </ul>
+        </div>
+        <div class="btns">
+          <a class="btn primary" target="_blank" href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/">Live</a>
+          <a class="btn" target="_blank" href="https://github.com/Mrrobot-rx/algerian-sentiment">Code</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2>Contact</h2>
+      <div class="card tilt">
+        <p><strong>Phone:</strong> <a href="tel:+213669989786" style="color:#dce8ff">+213 669 98 97 86</a></p>
+        <p><strong>Email:</strong> <a href="mailto:salimsamet00@gmail.com" style="color:#dce8ff">salimsamet00@gmail.com</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/Mrrobot-rx" target="_blank" style="color:#dce8ff">github.com/Mrrobot-rx</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">© <span id="y"></span> SAMET SALIM — Immersive Portfolio</div></footer>
+
+  <script>
+    // Background particle field
+    const c = document.getElementById('bg'), ctx = c.getContext('2d');
+    let w,h,pts=[]; const N=80;
+    function rs(){w=c.width=innerWidth;h=c.height=innerHeight}
+    rs(); addEventListener('resize',rs);
+    for(let i=0;i<N;i++) pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+0.5});
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle='#8ab4ff';
+      for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.globalAlpha=.5;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();}
+      for(let i=0;i<N;i++) for(let j=i+1;j<N;j++){
+        const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+        if(d<120){ctx.globalAlpha=(1-d/120)*.18;ctx.strokeStyle='#7a9cff';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+      }
+      requestAnimationFrame(draw);
+    } draw();
+
+    // 3D hover tilt
+    const tilts = document.querySelectorAll('.tilt');
+    tilts.forEach(el=>{
+      el.addEventListener('mousemove',e=>{
+        const r=el.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+        const rx=((y/r.height)-.5)*-8, ry=((x/r.width)-.5)*10;
+        el.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+      });
+      el.addEventListener('mouseleave',()=>el.style.transform='perspective(900px) rotateX(0) rotateY(0)');
+    });
+
+    // Scroll reveal
+    const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('show')),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(x=>obs.observe(x));
+    document.getElementById('y').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
