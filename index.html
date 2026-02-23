@@ -4,188 +4,970 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SAMET SALIM — Immersive Portfolio</title>
-  <meta name="description" content="Immersive fullstack-style portfolio for Samet Salim" />
+  <meta name="description" content="Immersive fullstack-style portfolio for Samet Salim — AI practitioner, NLP engineer, Data Scientist." />
+  <meta property="og:title" content="SAMET SALIM — Immersive Portfolio" />
+  <meta property="og:description" content="Self-taught AI practitioner building NLP tools for low-resource languages in Algeria." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#060816;--bg2:#0b1230;--card:#0f1a3d99;--line:#ffffff22;--text:#ecf3ff;--muted:#a8b7d8;
-      --c1:#36d1dc;--c2:#5b86e5;--c3:#8b5cf6;--good:#4ade80;
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg:    #060816;
+      --bg2:   #0b1230;
+      --card:  #0f1a3d99;
+      --line:  #ffffff1a;
+      --line2: #ffffff33;
+      --text:  #ecf3ff;
+      --muted: #8fa3c8;
+      --c1:    #36d1dc;
+      --c2:    #5b86e5;
+      --c3:    #8b5cf6;
+      --c4:    #ec4899;
+      --good:  #4ade80;
+      --warn:  #facc15;
+      --radius: 16px;
+      --font-mono: 'JetBrains Mono', 'Courier New', monospace;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:radial-gradient(1000px 600px at 20% -10%,#1b2f73,transparent 55%),radial-gradient(900px 500px at 90% 10%,#2b115f,transparent 50%),var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth}
-    canvas#bg{position:fixed;inset:0;z-index:-2}
-    .noise{position:fixed;inset:0;z-index:-1;opacity:.05;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)"/></svg>');}
-    .container{width:min(1150px,92%);margin:auto}
-    header{position:sticky;top:0;backdrop-filter:blur(8px);background:#060816aa;border-bottom:1px solid var(--line);z-index:10}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
-    .brand{font-weight:800;letter-spacing:.4px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
-    nav a{color:var(--muted);text-decoration:none;margin-left:14px;font-size:.92rem}
-    nav a:hover{color:#fff}
-    section{padding:62px 0}
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}
-    h1{font-size:clamp(2rem,5vw,4rem);line-height:1.06;margin:.2rem 0 1rem}
-    .gradient{background:linear-gradient(90deg,#fff,var(--c1),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
-    p{color:var(--muted)}
-    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-    .btn{display:inline-block;padding:11px 14px;border:1px solid var(--line);border-radius:12px;color:#fff;text-decoration:none;background:#0f1736}
-    .btn.primary{border:none;background:linear-gradient(90deg,var(--c2),var(--c3))}
-    .panel{background:linear-gradient(180deg,#182a62aa,#0f1a3d66);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 10px 30px #00000055;transform-style:preserve-3d;transition:transform .2s ease}
-    .meta{display:grid;gap:8px}
-    .line{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed #ffffff18;padding:6px 0}
-    .k{color:#b9c7e7}.v{font-weight:600;color:#fff;text-align:right}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;transform-style:preserve-3d;transition:transform .16s ease, box-shadow .16s ease;border-top:1px solid #ffffff3a}
-    .card:hover{box-shadow:0 10px 25px #00000066}
-    h2{font-size:1.5rem;margin:0 0 14px}
-    h3{margin:.2rem 0 .6rem;font-size:1.05rem}
-    ul{margin:6px 0 0;padding-left:18px;color:var(--muted)}
-    .timeline{display:grid;gap:10px}
-    .item{padding:14px;border-left:3px solid var(--c3);background:#ffffff06;border-radius:8px}
-    .tag{display:inline-block;padding:5px 10px;border:1px solid var(--line);border-radius:999px;margin:4px 6px 0 0;color:#d8e7ff;font-size:.82rem;background:#ffffff08}
-    .project{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
-    footer{padding:26px 0 40px;border-top:1px solid var(--line);color:#8ea0c7}
-    .reveal{opacity:0;transform:translateY(26px);transition:all .65s ease}
-    .reveal.show{opacity:1;transform:none}
-    @media(max-width:980px){.hero,.grid{grid-template-columns:1fr}nav{display:none}}
+
+    /* ── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: radial-gradient(900px 500px at 15% -5%, #1a2f73 0%, transparent 60%),
+                  radial-gradient(700px 400px at 90% 5%, #2a1060 0%, transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ──────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--c2), var(--c3)); border-radius: 4px; }
+
+    /* ── BACKGROUND CANVAS ──────────────────────────────────── */
+    #bg { position: fixed; inset: 0; z-index: -2; }
+    .noise {
+      position: fixed; inset: 0; z-index: -1; opacity: .04;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)"/></svg>');
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────────────── */
+    .container { width: min(1180px, 93%); margin: auto; }
+
+    /* ── HEADER / NAV ───────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(14px) saturate(160%);
+      background: #060816bb;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0;
+    }
+    .brand {
+      font-weight: 900; font-size: 1.05rem; letter-spacing: .5px;
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      cursor: default;
+    }
+    .brand span { opacity: .55; font-weight: 400; }
+    nav { display: flex; align-items: center; gap: 4px; }
+    nav a {
+      color: var(--muted); text-decoration: none; padding: 6px 12px;
+      border-radius: 8px; font-size: .88rem; font-weight: 500;
+      transition: color .2s, background .2s;
+    }
+    nav a:hover { color: #fff; background: #ffffff0f; }
+    .nav-cta {
+      margin-left: 8px; padding: 7px 16px !important;
+      background: linear-gradient(90deg, var(--c2), var(--c3)) !important;
+      color: #fff !important; border-radius: 10px !important;
+    }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--muted); border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* ── SECTIONS ───────────────────────────────────────────── */
+    section { padding: 80px 0; }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .hero-grid {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px;
+      align-items: stretch; padding-top: 20px;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      line-height: 1.05; font-weight: 900;
+      margin: .4rem 0 1.2rem;
+    }
+    .gradient {
+      background: linear-gradient(90deg, #fff 10%, var(--c1) 45%, var(--c2) 75%, var(--c3) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero-sub {
+      color: var(--muted); font-size: 1.05rem; max-width: 44ch; line-height: 1.7;
+    }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px; font-size: .78rem; font-weight: 600;
+      border: 1px solid var(--line2);
+    }
+    .badge-ai   { background: #5b86e510; color: var(--c2); border-color: #5b86e535; }
+    .badge-nlp  { background: #8b5cf610; color: var(--c3); border-color: #8b5cf635; }
+    .badge-data { background: #36d1dc10; color: var(--c1); border-color: #36d1dc35; }
+    .badge-dot  { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 11px 18px; border: 1px solid var(--line2); border-radius: 12px;
+      color: #e8f0ff; text-decoration: none; font-size: .88rem; font-weight: 600;
+      background: #0f1736; transition: border-color .2s, background .2s, transform .15s, box-shadow .15s;
+    }
+    .btn:hover { border-color: #ffffff44; background: #1a2550; transform: translateY(-2px); box-shadow: 0 8px 20px #00000044; }
+    .btn.primary {
+      border: none; color: #fff;
+      background: linear-gradient(135deg, var(--c2), var(--c3));
+      box-shadow: 0 4px 18px #5b86e530;
+    }
+    .btn.primary:hover { box-shadow: 0 8px 28px #5b86e555; filter: brightness(1.08); }
+    .btn svg { width: 15px; height: 15px; }
+
+    /* ── PANELS / CARDS ─────────────────────────────────────── */
+    .panel {
+      background: linear-gradient(160deg, #182a62aa, #0f1a3d66);
+      border: 1px solid var(--line);
+      border-top-color: #ffffff25;
+      border-radius: 20px; padding: 24px;
+      box-shadow: 0 12px 40px #00000055;
+      transform-style: preserve-3d;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line); border-top-color: #ffffff20;
+      border-radius: var(--radius); padding: 20px;
+      transform-style: preserve-3d;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover { box-shadow: 0 12px 30px #00000055; }
+
+    /* ── PROFILE SNAPSHOT ───────────────────────────────────── */
+    .profile-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+    }
+    .avatar {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--c2), var(--c3));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 800; color: #fff; flex-shrink: 0;
+    }
+    .meta { display: grid; gap: 2px; }
+    .line {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 10px; border-bottom: 1px solid #ffffff0f; padding: 8px 2px;
+      font-size: .88rem;
+    }
+    .line:last-child { border-bottom: none; }
+    .k { color: var(--muted); font-weight: 400; }
+    .v { font-weight: 600; color: #fff; text-align: right; }
+    .v.online { color: var(--good); }
+    .v.online::before { content: '● '; font-size: .65rem; }
+    .status-bar {
+      margin-top: 16px; padding: 12px 14px;
+      background: #4ade8010; border: 1px solid #4ade8030;
+      border-radius: 10px; font-size: .82rem; color: var(--good);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pulse {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--good); flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 #4ade8066; }
+      50% { opacity: .7; box-shadow: 0 0 0 5px transparent; }
+    }
+
+    /* ── SECTION HEADERS ────────────────────────────────────── */
+    .section-head { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .section-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    h2 { font-size: 1.7rem; font-weight: 800; }
+    h3 { font-size: 1rem; font-weight: 700; margin: 0 0 6px; }
+    p  { color: var(--muted); line-height: 1.7; }
+
+    /* ── ABOUT ──────────────────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .about-card { display: flex; flex-direction: column; gap: 6px; }
+    .about-card .icon { font-size: 1.6rem; margin-bottom: 4px; }
+
+    /* ── EDUCATION ──────────────────────────────────────────── */
+    .timeline { display: grid; gap: 12px; }
+    .t-item {
+      padding: 18px 20px 18px 24px;
+      border-left: 3px solid transparent;
+      background: linear-gradient(var(--bg), var(--bg)) padding-box,
+                  linear-gradient(180deg, var(--c2), var(--c3)) border-box;
+      border: 1px solid transparent;
+      border-left: 3px solid var(--c3);
+      background: #ffffff06; border-radius: 10px;
+      position: relative;
+    }
+    .t-item::before {
+      content: ''; position: absolute; left: -8px; top: 20px;
+      width: 13px; height: 13px; border-radius: 50%;
+      background: var(--c3); border: 2px solid var(--bg);
+    }
+    .t-year {
+      font-size: .78rem; font-family: var(--font-mono);
+      color: var(--c1); font-weight: 600; margin-bottom: 4px;
+    }
+    .t-title { font-weight: 700; font-size: 1rem; margin-bottom: 2px; }
+    .t-sub { font-size: .86rem; color: var(--muted); }
+
+    /* ── EXPERIENCE ─────────────────────────────────────────── */
+    .exp-card { position: relative; overflow: hidden; }
+    .exp-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--c2), var(--c3));
+    }
+    .exp-meta {
+      display: flex; align-items: center; gap: 8px; margin: 8px 0 14px;
+      font-size: .82rem; color: var(--muted); flex-wrap: wrap;
+    }
+    .exp-meta .sep { opacity: .3; }
+    .exp-badge {
+      padding: 3px 9px; border-radius: 999px; font-size: .75rem; font-weight: 600;
+      background: #5b86e515; color: var(--c2); border: 1px solid #5b86e530;
+    }
+    ul.bullets { list-style: none; display: grid; gap: 8px; margin-top: 12px; }
+    ul.bullets li {
+      display: flex; gap: 10px; color: var(--muted); font-size: .88rem; align-items: flex-start;
+    }
+    ul.bullets li::before {
+      content: '▸'; color: var(--c1); flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── SKILLS ─────────────────────────────────────────────── */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .skill-card .skill-header {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    }
+    .skill-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .tag {
+      display: inline-flex; align-items: center;
+      padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px;
+      margin: 4px 5px 0 0; color: #d0dfff; font-size: .79rem; font-weight: 500;
+      background: #ffffff07; transition: background .2s, border-color .2s;
+    }
+    .tag:hover { background: #ffffff12; border-color: var(--line2); }
+    .tag.hl { background: #5b86e510; border-color: #5b86e530; color: var(--c2); }
+
+    /* ── SKILL BARS ─────────────────────────────────────────── */
+    .skill-bar-group { display: grid; gap: 10px; margin-top: 14px; }
+    .skill-bar-row { display: grid; gap: 4px; }
+    .skill-bar-label {
+      display: flex; justify-content: space-between;
+      font-size: .8rem; color: var(--muted);
+    }
+    .skill-bar-label span:last-child { color: var(--c1); font-family: var(--font-mono); }
+    .bar-bg {
+      height: 5px; background: #ffffff10; border-radius: 99px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, var(--c2), var(--c3));
+      width: 0; transition: width 1.2s cubic-bezier(.25,.8,.25,1);
+    }
+
+    /* ── LANGUAGES ──────────────────────────────────────────── */
+    .lang-grid { display: grid; gap: 10px; }
+    .lang-row { display: flex; align-items: center; gap: 12px; }
+    .lang-name { width: 90px; font-size: .88rem; font-weight: 600; flex-shrink: 0; }
+    .lang-dots { display: flex; gap: 4px; }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--line2);
+      transition: background .3s;
+    }
+    .dot.filled { background: linear-gradient(135deg, var(--c2), var(--c3)); border-color: transparent; }
+    .lang-label { font-size: .78rem; color: var(--muted); }
+
+    /* ── PROJECTS ───────────────────────────────────────────── */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .project-card { display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
+    .project-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--c2)06, var(--c3)06);
+      pointer-events: none;
+    }
+    .project-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .project-tag {
+      padding: 3px 9px; border-radius: 6px; font-size: .74rem; font-weight: 600;
+      background: #8b5cf610; color: #b98af0; border: 1px solid #8b5cf625;
+    }
+    .project-stats {
+      display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px;
+    }
+    .stat {
+      display: flex; flex-direction: column; align-items: flex-start;
+    }
+    .stat-val {
+      font-size: 1.3rem; font-weight: 800;
+      background: linear-gradient(90deg, var(--c1), var(--c2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .stat-lbl { font-size: .72rem; color: var(--muted); }
+    .project-footer {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── CONTACT ────────────────────────────────────────────── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+      border-radius: 14px; border: 1px solid var(--line);
+      background: #ffffff04; text-decoration: none;
+      transition: background .2s, border-color .2s, transform .15s;
+    }
+    .contact-item:hover { background: #ffffff09; border-color: var(--line2); transform: translateY(-2px); }
+    .contact-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .contact-label { font-size: .75rem; color: var(--muted); margin-bottom: 2px; }
+    .contact-val { font-size: .9rem; font-weight: 600; color: var(--text); }
+
+    /* ── TERMINAL WIDGET ────────────────────────────────────── */
+    .terminal {
+      background: #050c20; border: 1px solid #ffffff15; border-radius: 14px;
+      overflow: hidden; margin-top: 24px;
+    }
+    .term-bar {
+      display: flex; align-items: center; gap: 6px; padding: 10px 14px;
+      background: #0a1430; border-bottom: 1px solid #ffffff0f;
+    }
+    .term-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .td1 { background: #ff5f57; }
+    .td2 { background: #febc2e; }
+    .td3 { background: #28c840; }
+    .term-title { margin-left: auto; font-size: .73rem; color: #4a5a80; font-family: var(--font-mono); }
+    .term-body { padding: 16px 18px; font-family: var(--font-mono); font-size: .8rem; line-height: 1.9; }
+    .tc-prompt { color: var(--c1); }
+    .tc-cmd    { color: #e2e8f0; }
+    .tc-comment{ color: #4a5a80; }
+    .tc-out    { color: var(--c3); }
+    .tc-val    { color: var(--good); }
+    .cursor    { display: inline-block; width: 7px; height: 14px; background: var(--c1); vertical-align: middle; animation: blink 1.1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      padding: 30px 0 44px; border-top: 1px solid var(--line);
+      font-size: .85rem; color: #6070a0;
+    }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a { color: #6070a0; text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--muted); }
+
+    /* ── SCROLL REVEAL ──────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+    .reveal.delay-1 { transition-delay: .1s; }
+    .reveal.delay-2 { transition-delay: .2s; }
+    .reveal.delay-3 { transition-delay: .3s; }
+
+    /* ── SCROLL PROGRESS ────────────────────────────────────── */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+      z-index: 9999; transition: width .1s;
+    }
+
+    /* ── BACK TO TOP ────────────────────────────────────────── */
+    #btt {
+      position: fixed; bottom: 28px; right: 28px; z-index: 500;
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--c2), var(--c3));
+      border: none; cursor: pointer; color: #fff; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px #5b86e555; opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .2s;
+    }
+    #btt.show { opacity: 1; pointer-events: all; }
+    #btt:hover { transform: translateY(-3px); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 56px 0; }
+      .skills-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+      nav.open { display: flex; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: #080f28ee; backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); padding: 12px 20px; gap: 2px; }
+      .hamburger { display: flex; }
+    }
   </style>
 </head>
 <body>
-  <canvas id="bg"></canvas><div class="noise"></div>
+  <div id="progress"></div>
+  <canvas id="bg"></canvas>
+  <div class="noise"></div>
+
+  <!-- ── HEADER ──────────────────────────────────────────────── -->
   <header>
     <div class="container nav">
-      <div class="brand">SAMET SALIM</div>
-      <nav>
-        <a href="#about">About</a><a href="#education">Education</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+      <div class="brand">SAMET<span>&nbsp;/&nbsp;</span>SALIM</div>
+      <nav id="main-nav">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact" class="nav-cta">Contact</a>
       </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero reveal">
+
+    <!-- ── HERO ──────────────────────────────────────────────── -->
+    <section class="hero-grid reveal">
+      <!-- Left panel -->
       <div class="panel tilt">
-        <div style="font-size:.85rem;color:#cfdcff">AI • NLP • DATA SCIENCE</div>
-        <h1>Immersive Portfolio<br><span class="gradient">SAMET SALIM</span></h1>
-        <p>Self-taught AI practitioner transitioning from Law and administration into full practical Data Science, focused on NLP for low-resource languages in Algeria and MENA.</p>
+        <div class="badge-row">
+          <span class="badge badge-ai"><span class="badge-dot"></span>AI</span>
+          <span class="badge badge-nlp"><span class="badge-dot"></span>NLP</span>
+          <span class="badge badge-data"><span class="badge-dot"></span>Data Science</span>
+        </div>
+        <h1 class="hero-title">Building AI for<br><span class="gradient">Underserved Languages</span></h1>
+        <p class="hero-sub">
+          Self-taught AI practitioner transitioning from law and administration into practical Data Science —
+          focused on NLP for low-resource languages in Algeria and the MENA region.
+        </p>
         <div class="btns">
-          <a class="btn primary" href="https://github.com/Mrrobot-rx" target="_blank">GitHub</a>
-          <a class="btn" href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/" target="_blank">Live Demo</a>
-          <a class="btn" href="https://flo.fun/sxlCK1n/" target="_blank">Portfolio Ref</a>
+          <a class="btn primary" href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/" target="_blank">
+            <!-- play icon -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Live Demo
+          </a>
+          <a class="btn" href="https://github.com/Mrrobot-rx" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.427 2.865 8.185 6.839 9.505.5.09.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.071 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.841-2.337 4.687-4.565 4.934.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .268.18.579.688.481C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/></svg>
+            GitHub
+          </a>
+          <a class="btn" href="#contact">Get in touch</a>
         </div>
       </div>
-      <div class="panel tilt">
-        <h3>Profile Snapshot</h3>
-        <div class="meta">
-          <div class="line"><span class="k">Age</span><span class="v">24</span></div>
-          <div class="line"><span class="k">DOB</span><span class="v">December 16, 2001</span></div>
-          <div class="line"><span class="k">Location</span><span class="v">Alger / Tébessa, Algeria</span></div>
-          <div class="line"><span class="k">Phone</span><span class="v">+213 669 98 97 86</span></div>
-          <div class="line"><span class="k">Email</span><span class="v">salimsamet00@gmail.com</span></div>
-          <div class="line"><span class="k">Status</span><span class="v">Single</span></div>
+
+      <!-- Right panel: Profile Snapshot -->
+      <div class="panel tilt" style="display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div class="profile-header">
+            <div class="avatar">SS</div>
+            <div>
+              <div style="font-weight:700;font-size:.95rem;">Samet Salim</div>
+              <div style="font-size:.78rem;color:var(--muted);">Alger / Tébessa, Algeria</div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="line"><span class="k">Age</span><span class="v">24</span></div>
+            <div class="line"><span class="k">Date of Birth</span><span class="v">Dec 16, 2001</span></div>
+            <div class="line"><span class="k">Phone</span><span class="v">+213 669 98 97 86</span></div>
+            <div class="line"><span class="k">Email</span><span class="v">salimsamet00@gmail.com</span></div>
+            <div class="line"><span class="k">Status</span><span class="v">Single</span></div>
+            <div class="line"><span class="k">Availability</span><span class="v online">Open to work</span></div>
+          </div>
+        </div>
+        <div class="status-bar">
+          <div class="pulse"></div>
+          Currently seeking remote AI / NLP roles and collaborations.
         </div>
       </div>
     </section>
 
+    <!-- ── ABOUT ──────────────────────────────────────────────── -->
     <section id="about" class="reveal">
-      <h2>About</h2>
-      <div class="card tilt">
-        <p>Transitioning from military hospital administrative operations to AI development, I learned by building. I convert inefficiencies into systems, and ideas into deployed solutions.</p>
-        <p>Career objective: advance through graduate-level Data Science and deliver NLP tools for underrepresented languages and communities.</p>
+      <div class="section-head">
+        <div class="section-icon" style="background:#5b86e515;">👤</div>
+        <h2>About Me</h2>
+      </div>
+      <div class="about-grid">
+        <div class="card tilt">
+          <p>
+            Transitioning from military hospital administrative operations to AI development — I learned by building.
+            I convert inefficiencies into systems and ideas into deployed solutions. Every workflow bottleneck I encountered
+            in my administrative career became a problem I wanted to automate.
+          </p>
+          <p style="margin-top:12px;">
+            Career objective: advance through graduate-level Data Science and deliver practical NLP tools for underrepresented
+            languages and communities across Algeria and the wider MENA region.
+          </p>
+        </div>
+        <div style="display:grid;gap:14px;">
+          <div class="card tilt about-card">
+            <div class="icon">🎯</div>
+            <h3>Focus Areas</h3>
+            <p style="font-size:.87rem;">Low-resource NLP · Algerian Arabic (Darja) · Sentiment Analysis · AI Automation</p>
+          </div>
+          <div class="card tilt about-card">
+            <div class="icon">🌍</div>
+            <h3>Mission</h3>
+            <p style="font-size:.87rem;">Make AI accessible for communities speaking dialects that mainstream models ignore.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal Widget -->
+      <div class="terminal reveal delay-2">
+        <div class="term-bar">
+          <div class="term-dot td1"></div>
+          <div class="term-dot td2"></div>
+          <div class="term-dot td3"></div>
+          <div class="term-title">samet@portfolio ~ terminal</div>
+        </div>
+        <div class="term-body">
+          <div><span class="tc-prompt">→ </span><span class="tc-cmd">python profile.py</span></div>
+          <div><span class="tc-comment"># Loading Samet Salim profile...</span></div>
+          <div><span class="tc-out">name        </span><span class="tc-val">= "Samet Salim"</span></div>
+          <div><span class="tc-out">focus       </span><span class="tc-val">= ["NLP", "Data Science", "AI Automation"]</span></div>
+          <div><span class="tc-out">language    </span><span class="tc-val">= "Algerian Arabic (Darja)"</span></div>
+          <div><span class="tc-out">status      </span><span class="tc-val">= "Open to remote collaborations"</span></div>
+          <div><span class="tc-out">projects    </span><span class="tc-val">= 1  <span class="tc-comment"># and growing</span></span></div>
+          <div><span class="tc-prompt">→ </span><span class="cursor"></span></div>
+        </div>
       </div>
     </section>
 
+    <!-- ── EDUCATION ──────────────────────────────────────────── -->
     <section id="education" class="reveal">
-      <h2>Education & Training</h2>
+      <div class="section-head">
+        <div class="section-icon" style="background:#36d1dc15;">🎓</div>
+        <h2>Education &amp; Training</h2>
+      </div>
       <div class="timeline">
-        <div class="item card tilt"><strong>2021 — First Year Law License (Incomplete)</strong><br><span class="k">Larbi Tebessi University, Faculty of Law, Tébessa</span></div>
-        <div class="item card tilt"><strong>2019 — Baccalauréat</strong><br><span class="k">Field: Foreign Languages</span></div>
+        <div class="t-item card tilt reveal delay-1">
+          <div class="t-year">2021</div>
+          <div class="t-title">First Year Law License (Incomplete)</div>
+          <div class="t-sub">Larbi Tebessi University, Faculty of Law — Tébessa, Algeria</div>
+          <p style="margin-top:8px;font-size:.85rem;">Pivoted towards self-directed AI and programming studies to pursue a more impactful career path.</p>
+        </div>
+        <div class="t-item card tilt reveal delay-2">
+          <div class="t-year">2019</div>
+          <div class="t-title">Baccalauréat — Foreign Languages</div>
+          <div class="t-sub">Secondary Education, Algeria</div>
+        </div>
+        <div class="t-item card tilt reveal delay-3">
+          <div class="t-year">2022 – Present</div>
+          <div class="t-title">Self-Directed AI & Data Science Learning</div>
+          <div class="t-sub">Online resources · Hugging Face · OpenAI · Kaggle · Practice projects</div>
+          <p style="margin-top:8px;font-size:.85rem;">Continuous study of machine learning, NLP, Python data stack, and practical deployment.</p>
+        </div>
       </div>
     </section>
 
+    <!-- ── EXPERIENCE ─────────────────────────────────────────── -->
     <section id="experience" class="reveal">
-      <h2>Work Experience</h2>
-      <div class="card tilt">
-        <h3>Administrative Secretary Assistant — Military Hospital Project</h3>
-        <p class="k">Staoueli, Alger • May 26, 2023 → January 18, 2024</p>
-        <ul>
-          <li>Managed reception, correspondence classification, and archive organization (digital + physical)</li>
-          <li>Maintained administrative data entries and records</li>
-          <li>Detected manual workflow inefficiencies and applied automation-oriented methods</li>
+      <div class="section-head">
+        <div class="section-icon" style="background:#8b5cf615;">💼</div>
+        <h2>Work Experience</h2>
+      </div>
+      <div class="card tilt exp-card">
+        <h3>Administrative Secretary Assistant</h3>
+        <div class="exp-meta">
+          <span>Military Hospital Project</span>
+          <span class="sep">·</span>
+          <span>Staoueli, Alger</span>
+          <span class="sep">·</span>
+          <span>May 2023 → Jan 2024</span>
+          <span class="exp-badge">Contract</span>
+        </div>
+        <ul class="bullets">
+          <li>Managed reception operations, correspondence classification, and archive organization (digital &amp; physical)</li>
+          <li>Maintained administrative data entries and records with high accuracy under time pressure</li>
+          <li>Identified manual workflow inefficiencies and proposed automation-oriented solutions</li>
+          <li>Gained hands-on experience with data organization principles that now inform my AI work</li>
         </ul>
       </div>
     </section>
 
+    <!-- ── SKILLS ─────────────────────────────────────────────── -->
     <section id="skills" class="reveal">
-      <h2>Skills</h2>
-      <div class="grid">
-        <div class="card tilt"><h3>Technical</h3><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">numpy</span><span class="tag">NLP</span><span class="tag">Prompt Engineering</span><span class="tag">AI Automation</span><span class="tag">Streamlit</span><span class="tag">Sentiment Analysis</span><span class="tag">Git/GitHub</span></div>
-        <div class="card tilt"><h3>Tools</h3><span class="tag">VS Code</span><span class="tag">Hugging Face</span><span class="tag">OpenAI API</span><span class="tag">Web Apps</span></div>
-        <div class="card tilt"><h3>Languages</h3><span class="tag">Arabic (C2)</span><span class="tag">Darja (C2)</span><span class="tag">English (B2)</span><span class="tag">French (B1)</span></div>
+      <div class="section-head">
+        <div class="section-icon" style="background:#ec489915;">⚡</div>
+        <h2>Skills &amp; Tools</h2>
+      </div>
+      <div class="skills-grid">
+
+        <!-- Technical Skills -->
+        <div class="card tilt skill-card">
+          <div class="skill-header">
+            <div class="skill-icon" style="background:#5b86e515;">🐍</div>
+            <h3>Technical</h3>
+          </div>
+          <div>
+            <span class="tag hl">Python</span>
+            <span class="tag">pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag hl">NLP</span>
+            <span class="tag">Sentiment Analysis</span>
+            <span class="tag">Prompt Engineering</span>
+            <span class="tag">AI Automation</span>
+            <span class="tag hl">Streamlit</span>
+            <span class="tag">Git / GitHub</span>
+            <span class="tag">Data Preprocessing</span>
+          </div>
+          <div class="skill-bar-group" style="margin-top:16px;">
+            <div class="skill-bar-row">
+              <div class="skill-bar-label"><span>Python</span><span data-pct="85">85%</span></div>
+              <div class="bar-bg"><div class="bar-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-bar-row">
+              <div class="skill-bar-label"><span>NLP / Text Processing</span><span data-pct="78">78%</span></div>
+              <div class="bar-bg"><div class="bar-fill" data-width="78"></div></div>
+            </div>
+            <div class="skill-bar-row">
+              <div class="skill-bar-label"><span>Data Analysis</span><span data-pct="72">72%</span></div>
+              <div class="bar-bg"><div class="bar-fill" data-width="72"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools & Platforms -->
+        <div class="card tilt skill-card">
+          <div class="skill-header">
+            <div class="skill-icon" style="background:#8b5cf615;">🛠️</div>
+            <h3>Tools &amp; Platforms</h3>
+          </div>
+          <div>
+            <span class="tag">VS Code</span>
+            <span class="tag hl">Hugging Face</span>
+            <span class="tag hl">OpenAI API</span>
+            <span class="tag">Streamlit Cloud</span>
+            <span class="tag">GitHub Pages</span>
+            <span class="tag">Kaggle</span>
+            <span class="tag">Jupyter Notebook</span>
+          </div>
+          <div class="skill-bar-group" style="margin-top:16px;">
+            <div class="skill-bar-row">
+              <div class="skill-bar-label"><span>Hugging Face Ecosystem</span><span>70%</span></div>
+              <div class="bar-bg"><div class="bar-fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-bar-row">
+              <div class="skill-bar-label"><span>Streamlit Deployment</span><span>80%</span></div>
+              <div class="bar-bg"><div class="bar-fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-bar-row">
+              <div class="skill-bar-label"><span>OpenAI / LLM APIs</span><span>68%</span></div>
+              <div class="bar-bg"><div class="bar-fill" data-width="68"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="card tilt skill-card">
+          <div class="skill-header">
+            <div class="skill-icon" style="background:#36d1dc15;">🌐</div>
+            <h3>Languages</h3>
+          </div>
+          <div class="lang-grid">
+            <div class="lang-row">
+              <span class="lang-name">Arabic</span>
+              <div class="lang-dots">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot filled"></div><div class="dot filled"></div>
+              </div>
+              <span class="lang-label">C2 Native</span>
+            </div>
+            <div class="lang-row">
+              <span class="lang-name">Darja</span>
+              <div class="lang-dots">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot filled"></div><div class="dot filled"></div>
+              </div>
+              <span class="lang-label">C2 Native</span>
+            </div>
+            <div class="lang-row">
+              <span class="lang-name">English</span>
+              <div class="lang-dots">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot filled"></div><div class="dot"></div>
+              </div>
+              <span class="lang-label">B2 Upper-Int.</span>
+            </div>
+            <div class="lang-row">
+              <span class="lang-name">French</span>
+              <div class="lang-dots">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot"></div><div class="dot"></div>
+              </div>
+              <span class="lang-label">B1 Intermediate</span>
+            </div>
+          </div>
+          <p style="margin-top:16px;font-size:.82rem;">
+            Native fluency in Algerian Arabic and Darja makes me uniquely positioned to build
+            NLP tools for these underrepresented languages.
+          </p>
+        </div>
+
       </div>
     </section>
 
+    <!-- ── PROJECTS ───────────────────────────────────────────── -->
     <section id="projects" class="reveal">
-      <h2>Featured Project</h2>
-      <div class="card tilt project">
-        <div>
-          <h3>Algerian Arabic Sentiment Analysis Tool — January 2025</h3>
-          <p>Interactive NLP application for emotion analysis in Darja with custom preprocessing and real-time classification.</p>
-          <ul>
-            <li>Classes: positive, negative, neutral</li>
-            <li>Accuracy: 85% on 200+ labeled comments</li>
-            <li>Impact: practical AI for low-resource language communities</li>
-          </ul>
+      <div class="section-head">
+        <div class="section-icon" style="background:#36d1dc15;">🚀</div>
+        <h2>Featured Projects</h2>
+      </div>
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <div class="card tilt project-card">
+          <div>
+            <h3>Algerian Arabic Sentiment Analysis Tool</h3>
+            <div class="project-tag-row">
+              <span class="project-tag">NLP</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">Streamlit</span>
+              <span class="project-tag">Darja</span>
+            </div>
+            <p style="font-size:.87rem;margin-top:8px;">
+              Interactive NLP application for emotion analysis in Algerian Arabic (Darja) with custom preprocessing,
+              dialect normalization, and real-time sentiment classification.
+            </p>
+            <div class="project-stats">
+              <div class="stat">
+                <span class="stat-val">85%</span>
+                <span class="stat-lbl">Accuracy</span>
+              </div>
+              <div class="stat">
+                <span class="stat-val">200+</span>
+                <span class="stat-lbl">Labeled samples</span>
+              </div>
+              <div class="stat">
+                <span class="stat-val">3</span>
+                <span class="stat-lbl">Sentiment classes</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-footer">
+            <a class="btn primary" href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;"><path d="M8 5v14l11-7z"/></svg>
+              Live App
+            </a>
+            <a class="btn" href="https://github.com/Mrrobot-rx/algerian-sentiment" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.427 2.865 8.185 6.839 9.505.5.09.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.071 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.841-2.337 4.687-4.565 4.934.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .268.18.579.688.481C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/></svg>
+              Source Code
+            </a>
+          </div>
         </div>
-        <div class="btns">
-          <a class="btn primary" target="_blank" href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/">Live</a>
-          <a class="btn" target="_blank" href="https://github.com/Mrrobot-rx/algerian-sentiment">Code</a>
+
+        <!-- Project 2: Coming Soon -->
+        <div class="card tilt project-card" style="opacity:.7;">
+          <div>
+            <h3>Darja → English Translation Model</h3>
+            <div class="project-tag-row">
+              <span class="project-tag">Machine Translation</span>
+              <span class="project-tag">Seq2Seq</span>
+              <span class="project-tag">Low-Resource NLP</span>
+            </div>
+            <p style="font-size:.87rem;margin-top:8px;">
+              Fine-tuning a pre-trained multilingual transformer to enable Algerian dialect to English translation —
+              a dataset and model gap this project aims to fill.
+            </p>
+            <div class="project-stats">
+              <div class="stat">
+                <span class="stat-val" style="background:linear-gradient(90deg,var(--warn),#f97316);-webkit-background-clip:text;background-clip:text;color:transparent;">WIP</span>
+                <span class="stat-lbl">Status</span>
+              </div>
+              <div class="stat">
+                <span class="stat-val">2025</span>
+                <span class="stat-lbl">Target</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="btn" style="cursor:default;opacity:.5;">Coming Soon</span>
+          </div>
         </div>
+
       </div>
     </section>
 
+    <!-- ── CONTACT ────────────────────────────────────────────── -->
     <section id="contact" class="reveal">
-      <h2>Contact</h2>
-      <div class="card tilt">
-        <p><strong>Phone:</strong> <a href="tel:+213669989786" style="color:#dce8ff">+213 669 98 97 86</a></p>
-        <p><strong>Email:</strong> <a href="mailto:salimsamet00@gmail.com" style="color:#dce8ff">salimsamet00@gmail.com</a></p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/Mrrobot-rx" target="_blank" style="color:#dce8ff">github.com/Mrrobot-rx</a></p>
+      <div class="section-head">
+        <div class="section-icon" style="background:#ec489915;">✉️</div>
+        <h2>Get in Touch</h2>
+      </div>
+      <p style="margin-bottom:22px;max-width:50ch;">
+        Open to remote opportunities, collaborations on NLP / AI projects, and conversations about
+        low-resource language technology. Don't hesitate to reach out.
+      </p>
+      <div class="contact-grid">
+        <a class="contact-item" href="tel:+213669989786">
+          <div class="contact-icon" style="background:#5b86e515;">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-val">+213 669 98 97 86</div>
+          </div>
+        </a>
+        <a class="contact-item" href="mailto:salimsamet00@gmail.com">
+          <div class="contact-icon" style="background:#ec489915;">📧</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-val">salimsamet00@gmail.com</div>
+          </div>
+        </a>
+        <a class="contact-item" href="https://github.com/Mrrobot-rx" target="_blank">
+          <div class="contact-icon" style="background:#8b5cf615;">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;color:#b98af0;"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.427 2.865 8.185 6.839 9.505.5.09.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.071 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.841-2.337 4.687-4.565 4.934.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .268.18.579.688.481C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">GitHub</div>
+            <div class="contact-val">github.com/Mrrobot-rx</div>
+          </div>
+        </a>
+        <a class="contact-item" href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/" target="_blank">
+          <div class="contact-icon" style="background:#36d1dc15;">🌐</div>
+          <div>
+            <div class="contact-label">Live Project</div>
+            <div class="contact-val">Sentiment Analysis App</div>
+          </div>
+        </a>
       </div>
     </section>
+
   </main>
 
-  <footer><div class="container">© <span id="y"></span> SAMET SALIM — Immersive Portfolio</div></footer>
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="y"></span> Samet Salim — Immersive Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/Mrrobot-rx" target="_blank">GitHub</a>
+        <a href="mailto:salimsamet00@gmail.com">Email</a>
+        <a href="https://algerian-sentiment-ggnh57jracm8pq3dxyccvj.streamlit.app/" target="_blank">Demo</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="btt" aria-label="Back to top">↑</button>
 
   <script>
-    // Background particle field
+  (() => {
+    /* ── YEAR ─────────────────────────────────────────── */
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    /* ── SCROLL PROGRESS ──────────────────────────────── */
+    const prog = document.getElementById('progress');
+    const btt  = document.getElementById('btt');
+    window.addEventListener('scroll', () => {
+      const s = document.documentElement, p = s.scrollTop / (s.scrollHeight - s.clientHeight) * 100;
+      prog.style.width = p + '%';
+      btt.classList.toggle('show', s.scrollTop > 400);
+    }, { passive: true });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── MOBILE NAV ───────────────────────────────────── */
+    const nav = document.getElementById('main-nav');
+    const ham = document.getElementById('hamburger');
+    ham.addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+    /* ── PARTICLE FIELD ───────────────────────────────── */
     const c = document.getElementById('bg'), ctx = c.getContext('2d');
-    let w,h,pts=[]; const N=80;
-    function rs(){w=c.width=innerWidth;h=c.height=innerHeight}
-    rs(); addEventListener('resize',rs);
-    for(let i=0;i<N;i++) pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+0.5});
-    function draw(){
-      ctx.clearRect(0,0,w,h);
-      ctx.fillStyle='#8ab4ff';
-      for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.globalAlpha=.5;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();}
-      for(let i=0;i<N;i++) for(let j=i+1;j<N;j++){
-        const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
-        if(d<120){ctx.globalAlpha=(1-d/120)*.18;ctx.strokeStyle='#7a9cff';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+    let w, h, pts = [];
+    const N = 90, DIST = 130;
+    function rs() { w = c.width = innerWidth; h = c.height = innerHeight; }
+    rs(); addEventListener('resize', rs);
+    for (let i = 0; i < N; i++) pts.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4,
+      r: Math.random() * 1.6 + .6,
+      hue: Math.random() * 60 + 200   // blue-purple range
+    });
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of pts) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        ctx.globalAlpha = .55;
+        ctx.fillStyle = `hsl(${p.hue},80%,72%)`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.28); ctx.fill();
+      }
+      for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
+        const a = pts[i], b = pts[j],
+              d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < DIST) {
+          ctx.globalAlpha = (1 - d / DIST) * .14;
+          ctx.strokeStyle = `hsl(${(a.hue + b.hue) / 2},70%,65%)`;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
       }
       requestAnimationFrame(draw);
-    } draw();
+    }
+    draw();
 
-    // 3D hover tilt
-    const tilts = document.querySelectorAll('.tilt');
-    tilts.forEach(el=>{
-      el.addEventListener('mousemove',e=>{
-        const r=el.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
-        const rx=((y/r.height)-.5)*-8, ry=((x/r.width)-.5)*10;
-        el.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+    /* ── 3-D TILT ─────────────────────────────────────── */
+    document.querySelectorAll('.tilt').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const rx = ((e.clientY - r.top)  / r.height - .5) * -9;
+        const ry = ((e.clientX - r.left) / r.width  - .5) * 11;
+        el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(4px)`;
       });
-      el.addEventListener('mouseleave',()=>el.style.transform='perspective(900px) rotateX(0) rotateY(0)');
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateZ(0)';
+      });
     });
 
-    // Scroll reveal
-    const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('show')),{threshold:.12});
-    document.querySelectorAll('.reveal').forEach(x=>obs.observe(x));
-    document.getElementById('y').textContent=new Date().getFullYear();
+    /* ── SCROLL REVEAL + SKILL BARS ───────────────────── */
+    const barsAnimated = new WeakSet();
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('show');
+        if (!barsAnimated.has(e.target)) {
+          barsAnimated.add(e.target);
+          e.target.querySelectorAll('.bar-fill').forEach(bar => {
+            const w = bar.getAttribute('data-width') || 0;
+            setTimeout(() => { bar.style.width = w + '%'; }, 200);
+          });
+        }
+      });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(x => obs.observe(x));
+
+  })();
   </script>
 </body>
 </html>
